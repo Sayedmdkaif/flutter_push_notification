@@ -36,7 +36,12 @@ class _HomePageState extends State<HomePage> {
     // 2. Instantiate Firebase Messaging
     _messaging = FirebaseMessaging.instance;
 
+// String a=getToken() as String;
+    getToken();
+  //  print('kaiftoken'+a);
 
+    _messaging.subscribeToTopic('kaif');
+   // _messaging.unsubscribeFromTopic('TopicToListen');
 
 
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -99,7 +104,7 @@ class _HomePageState extends State<HomePage> {
             leading: NotificationBadge(totalNotifications: _totalNotifications),
             subtitle: Text(_notificationInfo!.body!),
             background: Colors.cyan.shade700,
-            duration: Duration(seconds: 2),
+            duration: Duration(seconds: 5),
           );
 
 
@@ -237,5 +242,12 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  Future<String?> getToken() async {
+    String? a=await _messaging.getToken();
+
+    print('kaiftoken'+a!);
+    return a;
   }
 }
